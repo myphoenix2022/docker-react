@@ -7,15 +7,18 @@ services:
 before_install:
   - docker build -t myphoenix2022/docker-react -f Dockerfile.dev .
 
+script:
+  - docker run -e CI=true myphoenix2022/docker-react npm run test -- --coverage
 
 deploy:
   provider: elasticbeanstalk
   region: 'us-east-1'
-  app: 'MyFirstDocker'
-  env: 'Myfirstdocker-env'
+  app: 'MyFirstDockerApplication'
+  env: 'Myfirstdockerapplication-env'
   bucket_name: 'elasticbeanstalk-us-east-1-601170161731'
-  bucket_path: 'MyFirstDocker'
+  bucket_path: 'MyFirstDockerApplication'
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
+
